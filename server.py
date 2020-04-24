@@ -33,7 +33,7 @@ class S(BaseHTTPRequestHandler):
     def do_POST(self):
         content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
         post_data = self.rfile.read(content_length) # <--- Gets the data itself
-        message = "{}POST {} request,\nPath: {}\nHeaders:\n{}\n\nBody:\n{}\n".format(bcolors.OKGREEN, bcolors.ENDC, self.path, self.headers, post_data.decode('utf-8')
+        message = "{}POST {} request,\nPath: {}\nHeaders:\n{}\n\nBody:\n{}\n".format(bcolors.OKGREEN, bcolors.ENDC, self.path, self.headers, post_data.decode('utf-8'))
         logging.info(message)
         print(message)
 
