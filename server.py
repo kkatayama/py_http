@@ -37,7 +37,7 @@ class S(BaseHTTPRequestHandler):
         self.wfile.write("POST request for {}".format(self.path).encode('utf-8'))
 
 def run(server_class=HTTPServer, handler_class=S, port=8080):
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(filename='zoom_meeting.log', filemode='w', level=logging.INFO)
     
     for i in range(50):
         try :
