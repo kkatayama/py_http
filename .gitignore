@@ -1,0 +1,7 @@
+# -- ignore files
+*.log
+*.sh
+
+# -- ignore directories
+.mypy_cache/*
+
