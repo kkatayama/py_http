@@ -1,4 +1,4 @@
-# -- ignore files
+# -- ignore file types
 *.log
 *.gz
 *.*~
@@ -6,3 +6,5 @@
 # -- ignore directories
 .mypy_cache/*
 
+# -- ignore test files
+sendSMS.py
