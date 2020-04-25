@@ -21,12 +21,12 @@ echo "installing: ${MODULE}"
 $binary -m "${MODULE}"/setup.py install
 
 # -- configure gmail
-printf %100s | tr " " "="
-echo "\nNeed one-time password from  Gmail account..."
+printf "%140s\n" | tr " " "="
+echo "Need one-time password from  Gmail account..."
 echo "  1. Enable 2-Step Verification [any method (ex: text message)]: https://myaccount.google.com/u/2/security"
 echo "  2. Add a second step [any method (ex: Authenticator app)]: https://myaccount.google.com/u/2/signinoptions/two-step-verification"
 echo "  3. Create and App Password: https://myaccount.google.com/u/2/apppasswords"
 echo "     [Select app] = Mail"
 echo "     [Select device] = <Other (Custom name)> === [HOSTNAME]" 
 echo "  4. Click [\"GENERATE\"]"
-printf %100s | tr " " "="
+printf "%140s\n" | tr " " "="
