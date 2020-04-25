@@ -3,7 +3,6 @@
 Simple http server for zoom webhooks
 Usage::
     ./server.py [<port>]
-
 """
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import logging
