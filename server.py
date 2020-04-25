@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Very simple HTTP server in python for logging requests
+Simple http server for zoom webhooks
 Usage::
     ./server.py [<port>]
 """
@@ -27,8 +27,10 @@ class S(BaseHTTPRequestHandler):
         logging.info(message)
         print(message)
 
-        self._set_response()
+        # -- blank response 
         self.wfile.write("GET request for {}".format(self.path).encode('utf-8'))
+        self._set_response()
+        self.wfile.write(b"")
 
     def do_POST(self):
         content_length = int(self.headers['Content-Length']) # <--- Gets the size of data

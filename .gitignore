@@ -1,6 +1,7 @@
 # -- ignore files
 *.log
-*.sh
+*.gz
+*.*~
 
 # -- ignore directories
 .mypy_cache/*
