@@ -11,6 +11,7 @@ sudo apt install -y default-jre
 wget https://github.com/AsamK/signal-cli/releases/download/v"${SIGNAL_VERSION}"/signal-cli-"${SIGNAL_VERSION}".tar.gz
 sudo tar xf signal-cli-"${SIGNAL_VERSION}".tar.gz -C /opt
 sudo ln -sf /opt/signal-cli-"${SIGNAL_VERSION}"/bin/signal-cli /usr/local/bin/
+rm -f ./signal-cli-"${VERSION}".tar.gz
 
 # -- install qrencode
 sudo apt install -y qrencode

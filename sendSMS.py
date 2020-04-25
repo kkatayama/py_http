@@ -5,7 +5,7 @@ from urllib.parse import urlencode
 twilio_number = "+12055397721"
 phone_number = "+13026904809"
 account_sid = "AC8937212616c209386d1abb1d1ee393e8"
-auth_token = "a19a7060efc492c459e52359f4bd5fb5"
+auth_token = "d2ab46e1e2ea2af831e0cbf133deabb7"
 message = "Test Joined your Zoom Meeting Room"
 
 # -- twilio API url
