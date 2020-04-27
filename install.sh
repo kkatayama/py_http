@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "openssl req -new -x509 -keyout server.pem -out server.pem -days 365 -nodes"
+openssl req -new -x509 -keyout server.pem -out server.pem -days 365 -nodes
+
 # -- get python version
 echo -e "\ndetermining python version..."
 binary=$(which python3)
@@ -46,3 +49,7 @@ $binary setup_gmail.py
 
 echo -e "\nDEBUG NOTES"
 echo "Command used to run test: ${binary} setup_gmail.py"
+
+echo -e "\nTO RUN WEB SERVER:"
+echo "${binary} server.py 4443"
+

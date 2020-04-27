@@ -2,6 +2,7 @@
 *.log
 *.gz
 *.*~
+*.pem
 config.ini
 
 # -- ignore directories
