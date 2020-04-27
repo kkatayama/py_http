@@ -2,9 +2,12 @@
 *.log
 *.gz
 *.*~
+config.ini
 
 # -- ignore directories
 .mypy_cache/*
 
 # -- ignore test files
 sendSMS.py
+test.sh
+install_signal.sh

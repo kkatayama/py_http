@@ -19,7 +19,7 @@ sudo apt install -y qrencode
 
 echo "Registering Signal with Google Voice Number: ${GOOGLE_NUMBER}"
 # -- register signal to google voice
-signal-cli -u "${GOOGLENUMBER}" register
+signal-cli -u "${GOOGLE_NUMBER}" register
 
 # -- ask for verification code
 read -p "ENTER VERIFICATION CODE: " code

@@ -18,6 +18,8 @@ class bcolors:
 
 class S(BaseHTTPRequestHandler):
     def _set_response(self):
+        self.server_version = 'customHTTP/1.0'
+        self.sys_version = ''
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
