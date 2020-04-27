@@ -26,7 +26,8 @@ fi
 # -- install gmail-sender
 echo -e "\ninstalling: ${MODULE}"
 cd "${MODULE}"
-$binary setup.py build$binary setup.py install
+$binary setup.py build
+$binary setup.py install
 cd ..
 rm -rf  "${MODULE}"
 
