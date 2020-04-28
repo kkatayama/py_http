@@ -55,9 +55,6 @@ def run(server_class=HTTPServer, handler_class=S, port=4443):
 
     for i in range(50):
         try :
-            server_address = ('', port)
-            httpd = server_class(server_address, handler_class)
-            
             break
         except OSError:
             port += 1
@@ -70,6 +67,8 @@ def run(server_class=HTTPServer, handler_class=S, port=4443):
     logging.info(message)
 
     try:
+        server_address = ('', port)
+        httpd = server_class(server_address, handler_class)
         httpd.socket = ssl.wrap_socket(httpd.socket, certfile="server.pem", server_side=True)
         httpd.serve_forever()
     except KeyboardInterrupt:
