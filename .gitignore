@@ -4,6 +4,7 @@
 *.*~
 *.crt
 *.key
+*.pem
 config.ini
 
 # -- ignore directories
