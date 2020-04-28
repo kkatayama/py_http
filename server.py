@@ -9,7 +9,7 @@ try:
 except:
     from BaseHTTPServer import HTTPServer
     from SimpleHTTPServer import SimpleHTTPRequestHandler as BaseHTTPRequestHandler
-import ssl
+# import ssl
 import logging
 
 class bcolors:
@@ -50,7 +50,7 @@ class S(BaseHTTPRequestHandler):
         self._set_response()
         self.wfile.write("POST request for {}".format(self.path).encode('utf-8'))
 
-def run(server_class=HTTPServer, handler_class=S, port=4443):
+def run(server_class=HTTPServer, handler_class=S, port=8888):
     logging.basicConfig(filename='zoom_meeting.log', filemode='w', level=logging.INFO)
 
     for i in range(50):
@@ -69,7 +69,7 @@ def run(server_class=HTTPServer, handler_class=S, port=4443):
     try:
         server_address = ('', port)
         httpd = server_class(server_address, handler_class)
-        httpd.socket = ssl.wrap_socket(httpd.socket, certfile="server.pem", server_side=True)
+        # httpd.socket = ssl.wrap_socket(httpd.socket, certfile="server.pem", server_side=True)
         httpd.serve_forever()
     except KeyboardInterrupt:
         pass
