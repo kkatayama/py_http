@@ -11,6 +11,6 @@ config.ini
 .mypy_cache/*
 
 # -- ignore test files
-sendSMS.py
+send_SMS.py
 test.sh
 install_signal.sh
