@@ -10,11 +10,10 @@ if __name__ == '__main__':
     print('Gmail login and send email test.'.upper())
     print('need one-time password to connect with Gmail account...')
     print("  1. Enable 2-Step Verification [any method (ex: text message)]: https://myaccount.google.com/u/2/security")
-    print("  2. Add a second step [any method (ex: Authenticator app)]: https://myaccount.google.com/u/2/signinoptions/two-step-verification")
-    print("  3. Create an App Password: https://myaccount.google.com/u/2/apppasswords")
+    print("  2. Create an App Password: https://myaccount.google.com/u/2/apppasswords")
     print("     [Select app] = Mail")
     print("     [Select device] = <Other (Custom name)> === [HOSTNAME]")
-    print("  4. Click [GENERATE]")
+    print("  3. Click [GENERATE]")
     
     # -- setup parameters
     config_file = 'config.ini'
