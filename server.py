@@ -11,6 +11,7 @@ except:
     from SimpleHTTPServer import SimpleHTTPRequestHandler as BaseHTTPRequestHandler
 # import ssl
 import logging
+from gmail import GMail, Message
 
 class bcolors:
     HEADER = '\033[95m'
