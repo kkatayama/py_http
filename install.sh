@@ -1,7 +1,11 @@
 #!/bin/bash
 
-echo "openssl req -new -x509 -keyout server.pem -out server.pem -days 365 -nodes"
-openssl req -new -x509 -keyout server.pem -out server.pem -days 365 -nodes
+read -p "enter your FQDN (example: sokotaro.hopto.org): " fqdn
+# echo 'openssl req -nodes -newkey rsa:2048 -keyout server.key -x509 -days 365 -out server.crt -subj "/C=US/ST=Delaware/L=Newark/O=/CN=$fqdn"'
+# openssl req -nodes -newkey rsa:2048 -keyout server.key -x509 -days 365 -out server.crt -subj "/C=US/ST=Delaware/L=Newark/O=/CN=$fqdn"
+
+echo 'openssl req -new -x509 -keyout server.pem -out server.pem -days 365 -nodes -subj "/C=US/ST=Delaware/L=Newark/O=/CN=$fqdn"'
+openssl req -new -x509 -keyout server.pem -out server.pem -days 365 -nodes -subj "/C=US/ST=Delaware/L=Newark/O=/CN=$fqdn"
 
 # -- get python version
 echo -e "\ndetermining python version..."
@@ -29,8 +33,8 @@ fi
 # -- install gmail-sender
 echo -e "\ninstalling: ${MODULE}"
 cd "${MODULE}"
-$binary setup.py build
-$binary setup.py install
+# $binary setup.py build --user
+$binary setup.py install --user --prefix=
 cd ..
 rm -rf  "${MODULE}"
 

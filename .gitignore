@@ -2,7 +2,8 @@
 *.log
 *.gz
 *.*~
-*.pem
+*.crt
+*.key
 config.ini
 
 # -- ignore directories
