@@ -19,7 +19,10 @@ if __name__ == '__main__':
     config_file = 'config.ini'
     config = configparser.ConfigParser()
     config['gmail'] = {}
-    email = input('Enter Gmail Email Address: ')
+    try:
+        email = raw_input('Enter Gmail Email Address: ')
+    except:
+        email = input('Enter Gmail Email Address: ')
     password = getpass.getpass('Enter App Password: ')
 
     # -- test send email
@@ -38,14 +41,20 @@ if __name__ == '__main__':
     sms_config.read(sms_config_file)
 
     print('Would you like to test SMS message as well?')
-    ans = input('(y/n): ')
+    try:
+        ans = raw_input('(y/n): ')
+    except:
+        ans = input('(y/n): ')
 
     if len(ans) > 0 and ans[0].lower() == 'n':
         # -- export data to confgi.ini
         config['gmail']['pmail'] = 'NO'
         pass
     else:
-        phone = input('Enter Phone Number (eg: 3026904809): ')
+        try:
+            phone = raw_input('Enter Phone Number (eg: 3026904809): ')
+        except:
+            phone = input('Enter Phone Number (eg: 3026904809): ')
         print('Select Your Phone Provider:')
         print('='*40)
         print('ID # | Phone Provider')
@@ -55,7 +64,10 @@ if __name__ == '__main__':
             temp.append(provider)
             print('{:>3} | {}'.format(index, provider))
         print('-'*40)
-        p_id = int(input('Enter ID#: '))
+        try:
+            p_id = int(raw_input('Enter ID#: '))
+        except:
+            p_id = int(input('Enter ID#: '))
         pmail = sms_config[temp[p_id]]['sms'].replace('[insert 10-digit number]', phone)
         print('loaded: {}'.format(pmail))
         msg = Message('test sms message', pmail, text="this is a test from python")

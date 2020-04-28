@@ -90,11 +90,11 @@ def run(server_class=HTTPServer, handler_class=S, port=8888):
             break
         except OSError:
             port += 1
-            message = f"{bcolors.WARNING}PORT " + str(port-1) + " is unavalible. Trying PORT " + str(port) + f"{bcolors.ENDC}"
+            message = "{}PORT {} is unavalible. Trying PORT {}{}".format(bcolors.WARNING, port-1, port, bcolors.ENDC)
             print(message)
             logging.info(message)
 
-    message = f'{bcolors.OKGREEN}Starting HTTP SERVER at PORT ' + str(port) + f'{bcolors.ENDC}'
+    message = '{}Starting HTTP SERVER at PORT {}{}'.format(bcolors.OKGREEN, port, bcolors.ENDC)
     print(message)
     logging.info(message)
 
