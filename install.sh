@@ -1,11 +1,11 @@
 #!/bin/bash
 
 read -p "enter your FQDN (example: sokotaro.hopto.org): " fqdn
-# echo 'openssl req -nodes -newkey rsa:2048 -keyout server.key -x509 -days 365 -out server.crt -subj "/C=US/ST=Delaware/L=Newark/O=/CN=$fqdn"'
-# openssl req -nodes -newkey rsa:2048 -keyout server.key -x509 -days 365 -out server.crt -subj "/C=US/ST=Delaware/L=Newark/O=/CN=$fqdn"
+echo 'openssl req -nodes -newkey rsa:2048 -keyout server.key -x509 -days 365 -out server.crt -subj "/C=US/ST=Delaware/L=Newark/O=/CN=$fqdn"'
+openssl req -nodes -newkey rsa:2048 -keyout server.key -x509 -days 365 -out server.crt -subj "/C=US/ST=Delaware/L=Newark/O=/CN=$fqdn"
 
-echo 'openssl req -new -x509 -keyout server.pem -out server.pem -days 365 -nodes -subj "/C=US/ST=Delaware/L=Newark/O=/CN=$fqdn"'
-openssl req -new -x509 -keyout server.pem -out server.pem -days 365 -nodes -subj "/C=US/ST=Delaware/L=Newark/O=/CN=$fqdn"
+# echo 'openssl req -new -x509 -keyout server.pem -out server.pem -days 365 -nodes -subj "/C=US/ST=Delaware/L=Newark/O=/CN=$fqdn"'
+# openssl req -new -x509 -keyout server.pem -out server.pem -days 365 -nodes -subj "/C=US/ST=Delaware/L=Newark/O=/CN=$fqdn"
 
 # -- get python version
 echo -e "\ndetermining python version..."
