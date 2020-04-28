@@ -68,7 +68,7 @@ class S(BaseHTTPRequestHandler):
             mail = GMail(email, password)
 
             # -- send email
-            subject = '{} has joined your Zoom Meeting'.format(zoom_data['payload']['object']['participant'])
+            subject = '{} has joined your Zoom Meeting'.format(zoom_data['payload']['object']['participant']['user_name'])
             msg_body = json.dumps(zoom_data)
             msg = Message(subject, email, text=msg_body)
             mail.send(msg)
