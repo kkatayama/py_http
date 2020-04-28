@@ -4,8 +4,14 @@ Simple http server for zoom webhooks
 Usage::
     ./server.py [<port>]
 """
-from http.server import BaseHTTPRequestHandler, HTTPServer
+try:
+    from http.server import BaseHTTPRequestHandler, HTTPServer
+except:
+    from BaseHTTPServer import HTTPServer
+    from SimpleHTTPServer import SimpleHTTPRequestHandler as BaseHTTPRequestHandler
+import ssl
 import logging
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -44,13 +50,14 @@ class S(BaseHTTPRequestHandler):
         self._set_response()
         self.wfile.write("POST request for {}".format(self.path).encode('utf-8'))
 
-def run(server_class=HTTPServer, handler_class=S, port=8080):
+def run(server_class=HTTPServer, handler_class=S, port=4443):
     logging.basicConfig(filename='zoom_meeting.log', filemode='w', level=logging.INFO)
 
     for i in range(50):
         try :
             server_address = ('', port)
             httpd = server_class(server_address, handler_class)
+            
             break
         except OSError:
             port += 1
@@ -63,6 +70,7 @@ def run(server_class=HTTPServer, handler_class=S, port=8080):
     logging.info(message)
 
     try:
+        httpd.socket = ssl.wrap_socket(httpd.socket, certfile="server.pem", server_side=True)
         httpd.serve_forever()
     except KeyboardInterrupt:
         pass
