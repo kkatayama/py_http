@@ -9,7 +9,13 @@ try:
 except:
     from BaseHTTPServer import HTTPServer
     from SimpleHTTPServer import SimpleHTTPRequestHandler as BaseHTTPRequestHandler
+try:
+    import configparser
+except:
+    from six.moves import configparser
+
 # import ssl
+import json
 import logging
 from gmail import GMail, Message
 
@@ -50,6 +56,31 @@ class S(BaseHTTPRequestHandler):
 
         self._set_response()
         self.wfile.write("POST request for {}".format(self.path).encode('utf-8'))
+
+        # -- get zoom data, send email and sms
+        if 'meeting.participant_jbh_joined' in post_data.decode('utf-8'):
+            zoom_data = json.loads(post_data.decode('utf-8'))
+            config = configparser.ConfigParser()
+            config.read('config.ini')
+            email = config['gmail']['email']
+            password = config['gmail']['password']
+            pmail = config['gmail']['pmail']
+            mail = GMail(email, password)
+
+            # -- send email
+            subject = '{} has joined your Zoom Meeting'.format(zoom_data['payload']['object']['participant'])
+            msg_body = json.dumps(zoom_data)
+            msg = Message(subject, email, text=msg_body)
+            mail.send(msg)
+            print('sent email...')
+
+            # -- send sms messge
+            if pmail == 'NO':
+                pass
+            else:
+                msg = Message(subject, pmail, text='')
+                mail.send(msg)
+                print('sent sms...')
 
 def run(server_class=HTTPServer, handler_class=S, port=8888):
     logging.basicConfig(filename='zoom_meeting.log', filemode='w', level=logging.INFO)
