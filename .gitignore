@@ -6,6 +6,7 @@
 *.key
 *.pem
 config.ini
+api_keys
 
 # -- ignore directories
 .mypy_cache/*

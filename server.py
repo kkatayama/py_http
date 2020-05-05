@@ -15,9 +15,28 @@ except:
     from six.moves import configparser
 
 # import ssl
+import tweepy
+import urllib.parse
 import json
 import logging
 from gmail import GMail, Message
+
+def get_twurl(medium_url):
+    creds = {}
+    with open('api_keys') as f:
+        for l in f.readlines():
+            if l[0].isalpha():
+                k,v = l.strip().replace('"', '').split(' = ')
+                creds[k] = v
+
+    auth = tweepy.OAuthHandler(creds['api_key'], creds['api_secret_key'])
+    auth.set_access_token(creds['access_token'], creds['access_token_secret'])
+
+    api = tweepy.API(auth)
+    tweet = api.update_status(medium_url)
+    twurl = tweet.entities['urls'][0]['url']
+
+    return twurl.encode('utf-8')
 
 class bcolors:
     HEADER = '\033[95m'
@@ -56,8 +75,6 @@ class S(BaseHTTPRequestHandler):
         logging.info(message)
         print(message)
 
-        self._set_response()
-        self.wfile.write("POST request for {}".format(self.path).encode('utf-8'))
 
         # -- get zoom data, send email and sms
         if 'meeting.participant_jbh_joined' in post_data.decode('utf-8'):
@@ -83,6 +100,18 @@ class S(BaseHTTPRequestHandler):
                 msg = Message(subject, pmail, text='')
                 mail.send(msg)
                 print('sent sms...')
+            self._set_response()
+            self.wfile.write("Received zoom webhook".encode('utf-8'))
+        elif 'tweet' in post_data.decode('utf-8'):
+            medium_data = urllib.parse.parse_qs(post_data.decode('utf-8'))
+            twurl = get_twurl(medium_data['tweet'][0])
+            print("\n{}\n".format(medium_data['tweet']))
+            self._set_response()
+            self.wfile.write(twurl)
+        else:
+            self._set_response()
+            self.wfile.write("POST request for {}".format(self.path).encode('utf-8'))
+
 
 def run(server_class=HTTPServer, handler_class=S, port=8888):
     logging.basicConfig(filename='zoom_meeting.log', filemode='w', level=logging.INFO)
