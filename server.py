@@ -43,9 +43,11 @@ class S(BaseHTTPRequestHandler):
         print(message)
 
         # -- blank response 
-        self.wfile.write("GET request for {}".format(self.path).encode('utf-8'))
         self._set_response()
-        self.wfile.write(b"")
+        self.wfile.write("GET request for {}".format(self.path).encode('utf-8'))
+        # self._set_response()
+        # self.wfile.write(b"")
+
 
     def do_POST(self):
         content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
