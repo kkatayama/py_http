@@ -63,6 +63,7 @@ class S(BaseHTTPRequestHandler):
 
         # -- blank response 
         self._set_response()
+        # self.wfile.write("""<meta http-equiv="refresh" content="0; URL='http://new-website.com'" />""".encode('utf-8'))
         self.wfile.write("GET request for {}".format(self.path).encode('utf-8'))
         # self._set_response()
         # self.wfile.write(b"")
@@ -105,9 +106,12 @@ class S(BaseHTTPRequestHandler):
         elif 'tweet' in post_data.decode('utf-8'):
             medium_data = urllib.parse.parse_qs(post_data.decode('utf-8'))
             twurl = get_twurl(medium_data['tweet'][0])
-            print("\n{}\n".format(medium_data['tweet']))
-            self._set_response()
-            self.wfile.write(twurl)
+            print("\n{}\n{}\n".format(medium_data['tweet'][0], twurl.decode()))
+            self.send_response(308)
+            self.send_header('Location', twurl.decode())
+            self.end_headers()
+            # self._set_response()
+            # self.wfile.write(twurl)
         else:
             self._set_response()
             self.wfile.write("POST request for {}".format(self.path).encode('utf-8'))
