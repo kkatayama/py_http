@@ -14,8 +14,14 @@ try:
 except:
     from six.moves import configparser
 
+# -- check if twitter api is installed (tweepy)
+try:
+    import tweepy
+    TWITTER = True
+except:
+    TWITTER = False
+
 # import ssl
-import tweepy
 import urllib.parse
 import json
 import logging
@@ -31,10 +37,23 @@ def get_twurl(medium_url):
 
     auth = tweepy.OAuthHandler(creds['api_key'], creds['api_secret_key'])
     auth.set_access_token(creds['access_token'], creds['access_token_secret'])
-
     api = tweepy.API(auth)
-    tweet = api.update_status(medium_url)
-    twurl = tweet.entities['urls'][0]['url']
+
+    try:
+        tweet = api.update_status(medium_url)
+    except tweepy.TweepError as e:
+        print(e.reason)
+        print('\nsearching for duplicate tweet...')
+
+        for tweet in tweepy.Cursor(api.user_timeline).items():
+            if medium_url in str(tweet.entities['urls'][0]['expanded_url']):
+                print('FOUND TWEET: {}\n\t{}\n\t'.format(tweet.text, tweet.entities['urls'][0]['expanded_url'], tweet.entities['urls'][0]['url']))
+                break
+    try:
+        twurl = tweet.entities['urls'][0]['url']
+    except tweepy.TweepError as e:
+        print(e.reason)
+        twurl = 'ERROR: {}'.format(e.__dict__)
 
     return twurl.encode('utf-8')
 
@@ -103,7 +122,7 @@ class S(BaseHTTPRequestHandler):
                 print('sent sms...')
             self._set_response()
             self.wfile.write("Received zoom webhook".encode('utf-8'))
-        elif 'tweet' in post_data.decode('utf-8'):
+        elif 'tweet' in post_data.decode('utf-8') and TWITTER:
             medium_data = urllib.parse.parse_qs(post_data.decode('utf-8'))
             twurl = get_twurl(medium_data['tweet'][0])
             print("\n{}\n{}\n".format(medium_data['tweet'][0], twurl.decode()))
