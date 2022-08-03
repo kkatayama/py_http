@@ -25,11 +25,14 @@ except:
 import urllib.parse
 import json
 import logging
+from pathlib import Path
 from gmail import GMail, Message
+
 
 def get_twurl(medium_url):
     creds = {}
-    with open('api_keys') as f:
+    key_file = 'api_keys' if Path('api_keys').is_file() else '/Users/katayama/bin/keys/api_keys'
+    with open(key_file) as f:
         for l in f.readlines():
             if l[0].isalpha():
                 k,v = l.strip().replace('"', '').split(' = ')
